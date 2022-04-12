@@ -34,108 +34,58 @@ public class DepartamentoController {
 	}
 
 	@PostMapping
-
 	@ResponseBody
-
 	public ResponseEntity<HashMap<String, Object>> insertaDepartamento(@RequestBody Departamento obj) {
-
 		HashMap<String, Object> salida = new HashMap<String, Object>();
-
 		try {
-
 			List<Departamento> lstDepartamentos = service.listaPorPiso(obj.getPiso());
-
 			if (CollectionUtils.isEmpty(lstDepartamentos)) {
-
 				Departamento objSalida = service.insertaActualizaDepartamento(obj);
-
 				if (objSalida == null) {
-
 					salida.put("mensaje", "Error al insertar");
-
 				} else {
-
 					salida.put("mensaje", "Registro exitoso");
-
 				}
-
 			}
-
 		} catch (Exception e) {
-
 			salida.put("mensaje", "Error al insertar");
-
 		}
-
 		return ResponseEntity.ok(salida);
-
 	}
 	
 	@PutMapping
 	@ResponseBody
-
 	public ResponseEntity<HashMap<String, Object>>actualizaDepartamento(@RequestBody Departamento obj) {
-
 		HashMap<String, Object> salida = new HashMap<String, Object>();
-
 		try {
-
 			List<Departamento> lstDepartamentos = service.listaPorPiso(obj.getPiso());
-
 			if (CollectionUtils.isEmpty(lstDepartamentos)) {
-
 				salida.put("mensaje", "El Piso " + obj.getPiso() + " no existe");
-
 			}else {
-
 				Departamento objSalida = service.insertaActualizaDepartamento(obj);
-
 				if (objSalida == null) {
-
 					salida.put("mensaje", "Error al actualizar");
-
 				} else {
-
 					salida.put("mensaje", "Actualización exitosa");
-
 				}
-
 			}
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 			salida.put("mensaje", "Error al actualizar");
-
 		} 
-
-		
-
 		return ResponseEntity.ok(salida);
-
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
 	@ResponseBody
-
 	public ResponseEntity<HashMap<String, Object>>eliminaDepartamento(@PathVariable(name = "id") String id) {
-
 		HashMap<String, Object> salida = new HashMap<String, Object>();
-
 		try {
 
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 			salida.put("mensaje", "Error al eliminar");
 		} 
-
 		return ResponseEntity.ok(salida);
-
 	}
-
 }
